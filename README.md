@@ -22,6 +22,9 @@ The room setup is as follows:
 
 On medium the runs are balanced to provide the following base runs:
 - 1x Level 0, 3x Level 1, 2x Special
-- 1x Level 0, 3x Level 1, 1x Level 2, 3x Special
+- 1x Level 0, 4x Level 1, 3x Special
+- 1x Level 0, 3x Level 1, 1x Level 2, 4x Special
+
+Keeping in mind that the utility of the merchant is reduced.
 
 The players can then unlock 1-2 Special rooms per additional Battle room.
