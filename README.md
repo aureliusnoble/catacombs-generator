@@ -8,7 +8,7 @@ The generator is simple. It places a starting room at the top left, and then the
 
 It then places 2 Level 0 or Level 1 rooms next to the starting room. Then fills the rest of the layout with the remaining Level 0, Level 1, Level 2, and Special Rooms.
 
-Each completed Battle room provides a key. Level 2 rooms provide two keys (except in Impossible difficulty).
+Each completed Battle room provides a key. Level 2 rooms provide two keys (except in Impossible difficulty, where they only provide 1.).
 
 Each shop costs 1 key to enter, and the Catacomb Lord costs either 1 (Easy), 2 (Medium/Hard), or 3 (Impossible) depending on the difficulty. 
 
