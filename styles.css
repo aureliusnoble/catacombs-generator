@@ -1,0 +1,93 @@
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.card {
+  background-color: #f1f1f1;
+  border: 1px solid #999;
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+  position: relative;
+  height: 150px;
+  width: 150px;
+}
+
+.card-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.card.flipped {
+  background-color: #fff;
+}
+
+.lock-icon {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  width: 24px;
+  height: 24px;
+  background-image: url('lock-icon.png');
+  background-size: cover;
+  display: none;
+}
+
+.lock-icon::before {
+  content: attr(data-number);
+  position: absolute;
+  top: 50%;
+  right: calc(100% + 5px);
+  transform: translateY(-50%);
+  color: black;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.key-tracker {
+  position: fixed;
+  left: 20px;
+  top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.key-label {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.key-count-container {
+  display: flex;
+  align-items: center;
+}
+
+#key-count {
+  font-size: 24px;
+  margin-right: 10px;
+}
+
+#increment-keys {
+  font-size: 24px;
+  padding: 5px 10px;
+}
+
+.card-count-display {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  background-color: #fff;
+  padding: 10px;
+  border: 1px solid #999;
+  border-radius: 5px;
+  font-size: 14px;
+}

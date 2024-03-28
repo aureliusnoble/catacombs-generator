@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Catacombs Dungeon Builder</title>
+  <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+<div class="difficulty-menu">
+  <h2>Select Difficulty:</h2>
+  <label><input type="radio" name="difficulty" value="easy"> Easy</label>
+  <label><input type="radio" name="difficulty" value="medium" checked> Medium</label>
+  <label><input type="radio" name="difficulty" value="hard"> Hard</label>
+  <label><input type="radio" name="difficulty" value="impossible"> Impossible</label>
+  <button id="start-game">Start Game</button>
+</div>
+<div id="game-container" style="display: none;">
+  <div class="key-tracker">
+    <div class="key-label">Keys</div>
+    <div class="key-count-container">
+      <button id="decrement-keys">-</button>
+      <span id="key-count">0</span>
+      <button id="increment-keys">+</button>
+    </div>
+  </div>
+  <div class="card-count-display">
+    <p>Level 0: <span id="level0-count">0</span></p>
+    <p>Level 1: <span id="level1-count">0</span></p>
+    <p>Level 2: <span id="level2-count">0</span></p>
+    <p>Special: <span id="special-count">0</span></p>
+    <p>Catacomb Lord's Lair: <span id="catacomb-count">0</span></p>
+  </div>
+  <div class="grid-container">
+    <div class="card" data-position="1-1"><div class="lock-icon"></div></div>
+    <div class="card" data-position="2-1"><div class="lock-icon"></div></div>
+    <div class="card" data-position="3-1"><div class="lock-icon"></div></div>
+    <div class="card" data-position="4-1"><div class="lock-icon"></div></div>
+    <div class="card" data-position="1-2"><div class="lock-icon"></div></div>
+    <div class="card" data-position="2-2"><div class="lock-icon"></div></div>
+    <div class="card" data-position="3-2"><div class="lock-icon"></div></div>
+    <div class="card" data-position="4-2"><div class="lock-icon"></div></div>
+    <div class="card" data-position="1-3"><div class="lock-icon"></div></div>
+    <div class="card" data-position="2-3"><div class="lock-icon"></div></div>
+    <div class="card" data-position="3-3"><div class="lock-icon"></div></div>
+    <div class="card" data-position="4-3"><div class="lock-icon"></div></div>
+    <div class="card" data-position="1-4"><div class="lock-icon"></div></div>
+    <div class="card" data-position="2-4"><div class="lock-icon"></div></div>
+    <div class="card" data-position="3-4"><div class="lock-icon"></div></div>
+    <div class="card" data-position="4-4"><div class="lock-icon"></div></div>
+  </div>
+</div>
+  <script src="script.js"></script>
+</body>
+</html>
