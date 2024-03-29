@@ -9,10 +9,24 @@ const roomTypes = {
   'The Lava Pools': { type: '(1)', reward: 1 },
   'Bloodsworn Crypt': { type: '(1)', reward: 1 },
   'The Barracks': { type: '(1)', reward: 1 },
-  'The Cavern of Torhak': { type: '(1)', reward: 1 },
-  'The Destitution': { type: '(2)', reward: 2 },
-  'The Ending': { type: '(2)', reward: 2 },
-  'The Placeholder': { type: '(2)', reward: 2 },
+  'Larkwrayth Prison': { type: '(1)', reward: 1 },
+    'The Cavern of Torhak': { type: '(1)', reward: 1 },
+      'Stormtryne Hall': { type: '(1)', reward: 1 },
+        'Forbidden Ossuary': { type: '(1)', reward: 1 },
+          'The Mitholaq Hive': { type: '(1)', reward: 1 },
+            'Ruined Sanctuary': { type: '(1)', reward: 1 },
+              'Moghath': { type: '(1)', reward: 1 },
+                'Chagnar\'s Lair': { type: '(1)', reward: 1 },
+                  'Wychward Burrow': { type: '(1)', reward: 1 },
+  'The Phaoslay Realm': { type: '(2)', reward: 2 },
+  'Krhlot': { type: '(2)', reward: 2 },
+  'Shannotul': { type: '(2)', reward: 2 },
+  'Monoliths to Xorkarst': { type: '(2)', reward: 2 },
+    'Sepulcher of the Sisters': { type: '(2)', reward: 2 },
+      'The Covert Monument': { type: '(2)', reward: 2 },
+        'Athenoch Mortuary': { type: '(2)', reward: 2 },
+          'Lair of the Coramel': { type: '(2)', reward: 2 },
+            'Qurlathorm': { type: '(2)', reward: 2 },
   'Amaranth Inn': { type: '(S)', reward: 0 },
   'Alewife Tavern': { type: '(S)', reward: 0 },
   'Althea the Healer': { type: '(S)', reward: 0 },
@@ -22,11 +36,28 @@ const roomTypes = {
 
 
 const levelZeroRooms = ['Bholoth Cemetry', 'The Outer Bailey', 'Abbos Lookout', 'Zotha\'s Gatehouse', 'Oakheart Hall'];
-const levelOneRooms = ['Forthstron River', 'The Vermin Hovel', 'The Lava Pools', 'Bloodsworn Crypt', 'The Barracks', 'The Cavern of Torhak'];
-const levelTwoRooms = ['The Destitution', 'The Ending', 'The Placeholder'];
+const levelOneRooms = ['Forthstron River', 'The Vermin Hovel', 'The Lava Pools', 'Bloodsworn Crypt', 'The Barracks', 'The Cavern of Torhak', 'The Cavern of Torhak', 'Stormtryne Hall', 'Forbidden Ossuary', 'The Mitholaq Hive', 'Ruined Sanctuary', 'Moghath',  'Chagnar\'s Lair', 'Wychward Burrow'];
+const levelTwoRooms = ['The Phaoslay Realm', 'Krhlot', 'Shannotul',  'Monoliths to Xorkarst', 'Sepulcher of the Sisters','The Covert Monument','Athenoch Mortuary', 'Lair of the Coramel', 'Qurlathorm'];
 const specialRooms = ['Amaranth Inn', 'Alewife Tavern', 'Althea the Healer', 'Izchak the Merchant', 'Izchak the Merchant'];
 const catacombLordRoom = ['Catacomb Lord\'s Lair'];
 
+function restartGame() {
+  document.getElementById('game-container').style.display = 'none';
+  document.querySelector('.difficulty-menu').style.display = 'block';
+  keyCount = 0;
+  document.getElementById('key-count').textContent = keyCount;
+  flippedRooms = [];
+  availableRooms = [];
+  const cards = document.querySelectorAll('.card');
+  cards.forEach(card => {
+    card.innerHTML = '<div class="lock-icon"></div>';
+    card.classList.remove('flipped');
+    card.style.border = '1px solid #999';
+    card.addEventListener('click', flipCard);
+  });
+}
+
+document.getElementById('restart-game').addEventListener('click', restartGame);
 
 function getSelectedDifficulty() {
   const difficultyRadios = document.querySelectorAll('input[name="difficulty"]');
@@ -43,12 +74,12 @@ function generateLevelZeroOneDeck(excludeRoom, difficulty) {
 
   if (difficulty === 'easy') {
     deck.push(...getRandomRooms(levelZeroRoomsExcluded, 2));
-    deck.push(...getRandomRooms(levelOneRooms, 5));
+    deck.push(...getRandomRooms(levelOneRooms, 6));
   } else if (difficulty === 'medium') {
     deck.push(...getRandomRooms(levelZeroRoomsExcluded, 1));
     deck.push(...getRandomRooms(levelOneRooms, 6));
   } else if (difficulty === 'hard' || difficulty === 'impossible') {
-    deck.push(...getRandomRooms(levelOneRooms, 6));
+    deck.push(...getRandomRooms(levelOneRooms, 7));
   }
 
   return deck;
@@ -62,12 +93,14 @@ function getRandomRooms(rooms, count) {
 function generateMainDeck(difficulty) {
   const deck = [];
 
-  if (difficulty === 'easy' || difficulty === 'medium') {
+  if (difficulty === 'easy') {
+    deck.push(...getRandomRooms(levelTwoRooms, 1));
+  } else if (difficulty === 'medium') {
     deck.push(...getRandomRooms(levelTwoRooms, 2));
   } else if (difficulty === 'hard') {
-    deck.push(...getRandomRooms(levelTwoRooms, 3));
+    deck.push(...getRandomRooms(levelTwoRooms, 2));
   } else if (difficulty === 'impossible') {
-    deck.push(...getRandomRooms(levelTwoRooms, 5));
+    deck.push(...getRandomRooms(levelTwoRooms, 4));
   }
 
   deck.push(...specialRooms);
@@ -92,12 +125,17 @@ function fillGrid(difficulty) {
   flippedRooms = [];
   availableRooms = [];
   keyCount = 0;
+  
+    if (difficulty === 'easy') {
+    keyCount = 1;
+  }
+
   document.getElementById('key-count').textContent = keyCount;
 
   const cards = document.querySelectorAll('.card');
   let topLeftRoom;
 
-  if (difficulty === 'hard' || difficulty === 'impossible') {
+  if (difficulty === 'impossible') {
     topLeftRoom = getRandomRoom(levelOneRooms);
   } else {
     topLeftRoom = getRandomRoom(levelZeroRooms);
@@ -113,57 +151,58 @@ function fillGrid(difficulty) {
   const combinedDeck = [...shuffledLevelZeroOneDeck, ...mainDeck];
   const shuffledCombinedDeck = shuffleDeck(combinedDeck);
 
-  const level1RoomIndex = shuffledCombinedDeck.findIndex(room => roomTypes[room].type === '(1)');
-  const randomLevel1Room = shuffledCombinedDeck[level1RoomIndex];
+cards.forEach((card, index) => {
+  const position = card.getAttribute('data-position');
+  let room;
+  let lockNumber = 0;
+  let displayText = ''; // Initialize a variable to hold the text to display on the card
 
-  cards.forEach((card, index) => {
-    const position = card.getAttribute('data-position');
-    let room;
-    let lockNumber = 0;
-
-    if (position === '4-4') {
-      room = catacombLordRoom[0];
-      if (difficulty === 'easy') {
-        lockNumber = 1;
-      } else if (difficulty === 'impossible') {
-        lockNumber = 3;
-      } else {
-        lockNumber = 2;
-      }
-    } else if (position === '1-1') {
-      room = topLeftRoom;
-      availableRooms.push('1-1');
-    } else if (position === '1-2') {
-      room = room1_2;
-    } else if (position === '2-1') {
-      room = room2_1;
+  if (position === '4-4') {
+    room = catacombLordRoom[0];
+    displayText = 'Catacomb Lord\'s Lair'; // Set display text for Catacomb Lord's Lair
+    if (difficulty === 'easy') {
+      lockNumber = 0;
+    } else if (difficulty === 'impossible') {
+      lockNumber = 2;
+          } else if (difficulty === 'hard') {
+          lockNumber = 1;
     } else {
-      room = shuffledCombinedDeck.pop();
-      if (roomTypes[room].type === '(S)' || room === randomLevel1Room) {
-        lockNumber = 1;
-      }
+      lockNumber = 0;
     }
+  } else if (position === '1-1') {
+    room = topLeftRoom;
+    availableRooms.push('1-1');
+  } else if (position === '1-2') {
+    room = room1_2;
+  } else if (position === '2-1') {
+    room = room2_1;
+  } else {
+    room = shuffledCombinedDeck.pop();
+  }
 
-    card.setAttribute('data-room', room);
-    card.setAttribute('data-lock', lockNumber);
-    card.addEventListener('click', flipCard);
-
-    if (lockNumber > 0) {
-      card.querySelector('.lock-icon').dataset.number = lockNumber;
-      card.querySelector('.lock-icon').style.display = 'block';
-    }
-  });
+  card.setAttribute('data-room', room);
+  // Apply lock only to rooms with type '(S)' or the Catacomb Lord's Lair '(C)'
+  if (roomTypes[room].type === '(S)') {
+    lockNumber = 2;
+    displayText = 'Special Room'; // Set display text for special rooms
+    card.querySelector('.lock-icon').dataset.number = lockNumber;
+    card.querySelector('.lock-icon').style.display = 'block';
+  } else if (roomTypes[room].type == '(C)') {
+    card.querySelector('.lock-icon').dataset.number = lockNumber;
+    card.querySelector('.lock-icon').style.display = 'block';
+  }
+  card.setAttribute('data-lock', lockNumber);
+  card.innerHTML = `<div class="back">${displayText}</div>` + card.innerHTML; // Add the display text to the card's HTML
+  card.addEventListener('click', flipCard);
+});
 
   updateBorders();
   updateCardCountDisplay();
 }
 
+
 let keyCount = 0;
 
-function incrementKeys() {
-  keyCount++;
-  document.getElementById('key-count').textContent = keyCount;
-}
 
 function updateCardCountDisplay() {
   const level0Count = document.getElementById('level0-count');
@@ -244,15 +283,6 @@ function flipCard() {
   }
 }
 
-function decrementKeys() {
-  if (keyCount > 0) {
-    keyCount--;
-    document.getElementById('key-count').textContent = keyCount;
-  }
-}
-
-document.getElementById('decrement-keys').addEventListener('click', decrementKeys);
-
 
 
 
@@ -270,7 +300,7 @@ function updateBorders() {
   });
 }
 
-document.getElementById('increment-keys').addEventListener('click', incrementKeys);
+
 
 document.getElementById('start-game').addEventListener('click', () => {
   const difficulty = getSelectedDifficulty();
