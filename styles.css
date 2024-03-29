@@ -91,3 +91,11 @@
   border-radius: 5px;
   font-size: 14px;
 }
+
+
+#restart-game {
+  display: block;
+  margin: 20px auto;
+  padding: 10px 20px;
+  font-size: 18px;
+}
